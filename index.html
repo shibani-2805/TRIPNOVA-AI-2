@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TripNova – Explore More, Travel Smarter</title>
+  <meta name="description" content="TripNova builds day-wise trip plans with attractions, hotels, meals, weather and cost estimates for domestic and international destinations.">
+  <meta name="theme-color" content="#1456d9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231456d9'/%3E%3Cpath d='M14 34 50 16 38 50 31 37z' fill='white'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="logo" href="#/home" aria-label="TripNova home">
+        <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#38bdf8"/>
+              <stop offset="1" stop-color="#1456d9"/>
+            </linearGradient>
+          </defs>
+          <rect width="64" height="64" rx="16" fill="url(#logoGrad)"/>
+          <circle cx="32" cy="32" r="20" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2"/>
+          <path d="M15 34 50 16 38 50 31 37z" fill="#fff"/>
+        </svg>
+        <span class="logo-text">Trip<b>Nova</b></span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#/home" data-route="home">Home</a></li>
+        <li><a href="#/destinations" data-route="destinations">Destinations</a></li>
+        <li><a href="#/planner" data-route="planner">Plan Trip</a></li>
+        <li><a href="#/trips" data-route="trips">My Trips</a></li>
+        <li><a href="#/about" data-route="about">About</a></li>
+        <li class="nav-auth" id="nav-auth"></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ===================== HOME ===================== -->
+    <section class="view" id="view-home" data-view="home">
+
+      <div class="hero">
+        <div class="container hero-inner">
+          <div class="hero-text">
+            <p class="eyebrow">Explore More, Travel Smarter</p>
+            <h1>Welcome to TripNova</h1>
+            <p class="hero-lead">Pick your destinations, dates and budget. TripNova builds a day-by-day plan with attractions, hotels, meals, weather and cost estimates in the right currencies.</p>
+            <div class="hero-actions">
+              <a class="btn btn-light btn-lg" href="#/planner">Get Started</a>
+              <a class="btn btn-ghost btn-lg" href="#/destinations">Explore destinations</a>
+            </div>
+            <ul class="hero-stats">
+              <li><strong id="stat-destinations">17</strong><span>Destinations</span></li>
+              <li><strong>3</strong><span>Budget levels</span></li>
+              <li><strong>6</strong><span>Currencies</span></li>
+            </ul>
+          </div>
+
+          <div class="hero-collage" aria-hidden="true">
+            <div class="collage-card c1" data-hero-image="Paris"><span>Paris</span></div>
+            <div class="collage-card c2" data-hero-image="Bali"><span>Bali</span></div>
+            <div class="collage-card c3" data-hero-image="Jaipur"><span>Jaipur</span></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section features">
+        <div class="container">
+          <div class="feature-grid">
+            <article class="feature">
+              <div class="feature-icon">🗺️</div>
+              <h3>Multi-destination plans</h3>
+              <p>Combine several domestic and international places in one trip.</p>
+            </article>
+            <article class="feature">
+              <div class="feature-icon">🏨</div>
+              <h3>Hotels &amp; meals</h3>
+              <p>Hotel picks with direct website links plus breakfast, lunch and dinner ideas.</p>
+            </article>
+            <article class="feature">
+              <div class="feature-icon">💱</div>
+              <h3>Correct currencies</h3>
+              <p>Costs shown in each destination's currency and converted to the one you choose.</p>
+            </article>
+            <article class="feature">
+              <div class="feature-icon">🌤️</div>
+              <h3>Honest weather</h3>
+              <p>A live forecast when dates are close, otherwise a clearly labelled seasonal estimate.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="destinations">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow eyebrow-blue">Explore destinations</p>
+            <h2>Where do you want to go?</h2>
+            <p class="muted">Choose from domestic favourites and international classics.</p>
+          </div>
+          <div class="filter-row" id="home-filters" role="group" aria-label="Filter destinations">
+            <button type="button" class="chip-btn active" data-filter="All">All</button>
+            <button type="button" class="chip-btn" data-filter="Domestic">Domestic</button>
+            <button type="button" class="chip-btn" data-filter="International">International</button>
+          </div>
+          <div class="dest-grid" id="dest-grid" aria-live="polite">
+            <p class="muted">Loading destinations…</p>
+          </div>
+          <p class="credit">Destination photos are loaded from Wikipedia / Wikimedia Commons; each image has its own licence.</p>
+        </div>
+      </section>
+
+      <section class="section section-tint">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow eyebrow-blue">How it works</p>
+            <h2>Three simple steps</h2>
+          </div>
+          <ol class="steps">
+            <li><span class="step-num">1</span><h3>Tell us your plan</h3><p>Destinations, start date, days, travellers, budget and interests.</p></li>
+            <li><span class="step-num">2</span><h3>Generate your trip</h3><p>TripNova assigns days to destinations and fills each day with activities, food and a hotel.</p></li>
+            <li><span class="step-num">3</span><h3>Save and revisit</h3><p>Create a free account to keep your plans and open them any time.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container about">
+          <div>
+            <p class="eyebrow eyebrow-blue">About TripNova</p>
+            <h2>Explore More, Travel Smarter</h2>
+            <p>TripNova is a college project that turns a Python trip-planner into a full website. You choose what matters, and it builds a clear, day-wise itinerary you can read, print and save.</p>
+            <p>It is built with Python Flask, SQLite, HTML, CSS and JavaScript.</p>
+          </div>
+
+          <div class="honesty">
+            <h3>What is rule-based and what is AI?</h3>
+            <p class="muted">We keep this clear, so you know exactly what you are using.</p>
+            <ul class="honesty-list">
+              <li><span class="tag tag-rule">Rule-based</span> Itinerary building, activity and attraction selection, hotel and meal suggestions, cost calculation. These follow fixed rules in Python and data tables. There is no AI model involved.</li>
+              <li><span class="tag tag-live">Live data</span> Weather forecast (Open-Meteo, up to 15 days ahead) and exchange rates. These are real data services, not AI. If they are unreachable, the site falls back to seasonal estimates and fixed approximate rates, and says so.</li>
+              <li><span class="tag tag-ai">Real AI (optional)</span> The "AI trip brief" on a saved trip calls an AI API. It only works when the site owner adds an API key.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div class="container cta-inner">
+          <h2>Ready for your next trip?</h2>
+          <p>It takes about a minute to build a plan.</p>
+          <a class="btn btn-light btn-lg" href="#/planner">Get Started</a>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===================== PLANNER ===================== -->
+    <section class="view" id="view-planner" data-view="planner" hidden>
+      <div class="page-head">
+        <div class="container">
+          <h1>Trip Planner</h1>
+          <p>Tell us about your trip and we'll build the itinerary.</p>
+        </div>
+      </div>
+
+      <div class="container narrow">
+        <form id="trip-form" class="card form-card" novalidate>
+
+          <p class="form-error" id="form-error" role="alert" hidden></p>
+
+          <fieldset class="field">
+            <legend>1. Destinations <span class="req">*</span></legend>
+            <p class="hint">Select one or more. <strong id="dest-count">0 selected</strong></p>
+            <div class="filter-row small" id="picker-filters" role="group" aria-label="Filter destinations">
+              <button type="button" class="chip-btn active" data-filter="All">All</button>
+              <button type="button" class="chip-btn" data-filter="Domestic">Domestic</button>
+              <button type="button" class="chip-btn" data-filter="International">International</button>
+            </div>
+            <div class="pick-grid" id="dest-options"></div>
+            <p class="field-error" id="err-destinations" role="alert"></p>
+          </fieldset>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="start_date">2. Start date <span class="req">*</span></label>
+              <input type="date" id="start_date" name="start_date" required>
+              <p class="field-error" id="err-start_date" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="days">3. Number of days <span class="req">*</span></label>
+              <input type="number" id="days" name="days" min="1" max="30" step="1" inputmode="numeric" value="5" required>
+              <p class="hint" id="days-hint">Up to 30 days.</p>
+              <p class="field-error" id="err-days" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="travellers">4. Travellers <span class="req">*</span></label>
+              <input type="number" id="travellers" name="travellers" min="1" max="20" step="1" inputmode="numeric" value="2" required>
+              <p class="field-error" id="err-travellers" role="alert"></p>
+            </div>
+          </div>
+
+          <fieldset class="field">
+            <legend>5. Budget type <span class="req">*</span></legend>
+            <div class="radio-cards">
+              <label class="radio-card">
+                <input type="radio" name="budget_type" value="budget">
+                <span><strong>Budget</strong><small>Simple stays, local food</small></span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="budget_type" value="mid-range" checked>
+                <span><strong>Mid-range</strong><small>Comfortable and balanced</small></span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="budget_type" value="luxury">
+                <span><strong>Luxury</strong><small>Premium stays and dining</small></span>
+              </label>
+            </div>
+            <p class="field-error" id="err-budget_type" role="alert"></p>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>6. Activity preferences <span class="req">*</span></legend>
+            <p class="hint">Choose one or more.</p>
+            <div class="pill-grid" id="category-options"></div>
+            <p class="field-error" id="err-categories" role="alert"></p>
+          </fieldset>
+
+          <div class="field-row two">
+            <div class="field">
+              <label for="number_of_activities">7. Number of activities <span class="req">*</span></label>
+              <input type="number" id="number_of_activities" name="number_of_activities" min="1" max="20" step="1" inputmode="numeric" value="6" required>
+              <p class="hint" id="activities-hint">Three activities are scheduled each day (morning, afternoon, evening).</p>
+              <p class="field-error" id="err-number_of_activities" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="display_currency">8. Show total cost in</label>
+              <select id="display_currency" name="display_currency"></select>
+              <p class="hint">Each day is also shown in the destination's own currency.</p>
+              <p class="field-error" id="err-display_currency" role="alert"></p>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg btn-block" type="submit" id="generate-btn">
+            <span class="btn-label">Generate Trip</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===================== RESULTS ===================== -->
+    <section class="view" id="view-results" data-view="results" hidden>
+      <div class="page-head">
+        <div class="container">
+          <h1>Your Trip Plan</h1>
+          <p id="results-sub"></p>
+        </div>
+      </div>
+      <div class="container" id="results-content"></div>
+    </section>
+
+    <!-- ===================== MY TRIPS ===================== -->
+    <section class="view" id="view-trips" data-view="trips" hidden>
+      <div class="page-head">
+        <div class="container">
+          <h1>My Trips</h1>
+          <p>Your saved travel plans.</p>
+        </div>
+      </div>
+      <div class="container" id="trips-content"></div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a class="logo logo-light" href="#/home" aria-label="TripNova home">
+          <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="16" fill="#ffffff"/>
+            <path d="M15 34 50 16 38 50 31 37z" fill="#1456d9"/>
+          </svg>
+          <span class="logo-text">Trip<b>Nova</b></span>
+        </a>
+        <p class="footer-note">Explore More, Travel Smarter.</p>
+      </div>
+      <p class="footer-small">Plans are estimates. Check prices, opening hours and travel rules with official sources before you book.</p>
+    </div>
+  </footer>
+
+  <!-- ===================== LOGIN / REGISTER ===================== -->
+  <dialog id="auth-dialog" aria-labelledby="auth-title">
+    <div class="dialog-head">
+      <h2 id="auth-title">Welcome to TripNova</h2>
+      <button type="button" class="icon-btn" id="auth-close" aria-label="Close">✕</button>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" class="tab active" id="tab-login" data-tab="login" aria-selected="true">Log in</button>
+      <button type="button" role="tab" class="tab" id="tab-register" data-tab="register" aria-selected="false">Sign up</button>
+    </div>
+
+    <form id="login-form" class="auth-form" novalidate>
+      <p class="form-error" id="login-error" role="alert" hidden></p>
+      <div class="field">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" autocomplete="email" required>
+        <p class="field-error" id="err-login-email" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" autocomplete="current-password" required>
+        <p class="field-error" id="err-login-password" role="alert"></p>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit"><span class="btn-label">Log in</span><span class="spinner" aria-hidden="true"></span></button>
+    </form>
+
+    <form id="register-form" class="auth-form" novalidate hidden>
+      <p class="form-error" id="register-error" role="alert" hidden></p>
+      <div class="field">
+        <label for="register-name">Name</label>
+        <input type="text" id="register-name" autocomplete="name" maxlength="60" required>
+        <p class="field-error" id="err-name" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" autocomplete="email" required>
+        <p class="field-error" id="err-email" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="register-password">Password</label>
+        <input type="password" id="register-password" autocomplete="new-password" minlength="8" required>
+        <p class="hint">At least 8 characters, with a letter and a number.</p>
+        <p class="field-error" id="err-password" role="alert"></p>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit"><span class="btn-label">Create account</span><span class="spinner" aria-hidden="true"></span></button>
+    </form>
+  </dialog>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
